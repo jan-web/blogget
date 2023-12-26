@@ -1,5 +1,5 @@
 import style from './Heading.module.css';
 
-export const Heading = () => {
-  return <h1 className={style.heading }>Главная</h1>
+export const Heading = ({text}) => {
+  return <h1 className={style.heading }>{text}</h1>
 }
