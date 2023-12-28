@@ -1,13 +1,12 @@
-import style from './Main.module.css';
 import Layout from '../Layout';
+import style from './Main.module.css';
 
 
-export const Main = () => {
-  return (
-    <main className={style.main}>
+export const Main = () => (
+  <main className={style.main}>
     <Layout>
       <p>Main</p>
     </Layout>
   </main>
-  )
-}
+);
+
