@@ -7,7 +7,7 @@ import Date from './Date';
 import {ReactComponent as DeleteIcon} from './img/delete.svg';
 
 export const Post = ({postData}) => {
-  const {title, author, ups, date} = postData;
+  const {title, author, ups, created} = postData;
 
   return (
     <li className={style.post}>
@@ -17,7 +17,7 @@ export const Post = ({postData}) => {
         <DeleteIcon width={24} height={24} />
       </button>
       <Rating ups={ups} />
-      <Date date={date} />
+      <Date date={created} />
     </li>
   );
 };
