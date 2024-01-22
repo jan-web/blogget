@@ -14,12 +14,17 @@ export const useAuth = () => {
         Authorization: `bearer ${token}`,
       },
     })
-      .then((response) => response.json())
+      .then(response => {
+        if (response.status === 401) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
       .then(({name, icon_img: iconImg}) => {
         const img = iconImg.replace(/\?.*$/, '');
         setAuth({name, img});
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         setAuth({});
         delToken();
