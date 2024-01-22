@@ -12,14 +12,14 @@ export const Content = ({title, author, id}) => {
       <Text As="h2" className={style.title}>
         <Text
           As="a"
+          className={style.linkPost}
           size={18}
           tsize={24}
-          className={style.linkPost}
           href="#post"
           onClick={() => {
             setIsModalOpen(true);
           }}>
-          22{title}
+          {title}
         </Text>
       </Text>
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import Markdown from 'markdown-to-jsx';
 import ReactDOM from 'react-dom';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from '../Main/List/Post/Comments';
 import FormComment from '../Main/List/Post/FormComment';
@@ -12,6 +12,7 @@ import {Text} from '../../UI/Text';
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
   const [postAndComments, isLoading] = useCommentsData(id);
+  const [isFormVisible, setIsFormVisible] = useState(false);
   let title = 'title загрузка...';
   let author = 'author загрузка...';
   let markdown = 'markdown загрузка...';
@@ -30,6 +31,10 @@ export const Modal = ({id, closeModal}) => {
     if (e.code === 'Escape' || target === overlayRef.current) {
       closeModal();
     }
+  };
+
+  const handleFormVisible = () => {
+    setIsFormVisible(!isFormVisible);
   };
 
   useEffect(() => {
@@ -64,7 +69,10 @@ export const Modal = ({id, closeModal}) => {
             <Text className={style.author} As="p">
               {author}
             </Text>
-            <FormComment />
+            {isFormVisible && <FormComment onSubmitForm={handleFormVisible}/>}
+            {!isFormVisible && (
+              <button onClick={handleFormVisible}>Написать комментарий</button>
+            )}
             <Comments date={date} comments={comments} />
             <button className={style.close}>
               <CloseIcon onClick={closeModal} />

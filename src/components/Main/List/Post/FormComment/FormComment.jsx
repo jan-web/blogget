@@ -1,21 +1,27 @@
 import style from './FormComment.module.css';
 import {Text} from '../../../../../UI/Text';
 import {authContext} from '../../../../../context/authContext';
-import {useContext, useRef, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 
-export const FormComment = () => {
+export const FormComment = ({onSubmitForm}) => {
   const {auth} = useContext(authContext);
   const textArea = useRef(null);
   const [text, setText] = useState('');
+
+  useEffect(() => {
+    textArea.current.focus();
+  }, []);
 
   const handleOnTextAreaChange = e => {
     setText(e.target.value);
   };
 
-  const handleOnFormSubmit = (e) => {
+  const handleOnFormSubmit = e => {
     e.preventDefault();
     console.log(textArea.current.value);
     setText('');
+    onSubmitForm();
   };
 
   return (
@@ -31,4 +37,8 @@ export const FormComment = () => {
       <button className={style.btn}>Отправить</button>
     </form>
   );
+};
+
+FormComment.propTypes = {
+  onSubmitForm: PropTypes.func,
 };
