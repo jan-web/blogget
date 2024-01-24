@@ -1,4 +1,5 @@
-import {createStore} from 'redux';
+import {legacy_createStore as legacyCreateStore} from 'redux';
+import {composeWithDevTools} from '@redux-devtools/extension';
 import {getToken, setToken} from '../api/token';
 
 const initialState = {
@@ -19,7 +20,7 @@ export const updateToken = token => ({
   token,
 });
 export const deleteToken = () => ({
-  type: UPDATE_TOKEN,
+  type: DELETE_TOKEN,
   token: '',
 });
 
@@ -50,4 +51,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export const store = createStore(rootReducer);
+export const store = legacyCreateStore(rootReducer, composeWithDevTools());
