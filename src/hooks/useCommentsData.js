@@ -1,49 +1,16 @@
-import {useEffect, useState} from 'react';
-import {URL_API} from '../api/const';
-import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCommentsDataAsync} from '../store/getCommentsData/getCommentsDataActions';
 
 export const useCommentsData = id => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [postAndComments, setPostAndComments] = useState({});
-  const token = useSelector(state => state.token);
+  const status = useSelector(state => state.getCommentsData.status);
+  const postAndComments = useSelector(state => state.getCommentsData.data);
+  const token = useSelector(state => state.token.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!token) return;
-    setIsLoading(true);
-    setPostAndComments({});
-    fetch(`${URL_API}/comments/${id}`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.status === 401) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
-      .then(
-        ([
-          {
-            data: {
-              children: [{data: post}],
-            },
-          },
-          {
-            data: {children},
-          },
-        ]) => {
-          const comments = children.map(item => item.data);
-          setPostAndComments([post, comments]);
-        },
-      )
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        () => setIsLoading(false);
-      });
+    dispatch(getCommentsDataAsync(id));
   }, [token, id]);
 
-  return [postAndComments, isLoading];
+  return [postAndComments, status];
 };

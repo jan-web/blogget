@@ -1,16 +1,16 @@
 import style from './FormComment.module.css';
 import {Text} from '../../../../../UI/Text';
-import {authContext} from '../../../../../context/authContext';
-import {useContext, useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateComment} from '../../../../../store';
+import {updateComment} from '../../../../../store/commentReducer.js';
+import {useAuth} from '../../../../../hooks/useAuth.js';
 
 export const FormComment = ({onSubmitForm}) => {
-  const value = useSelector(state => state.comment);
+  const value = useSelector(state => state.comment.comment);
   const dispatch = useDispatch();
 
-  const {auth} = useContext(authContext);
+  const [auth] = useAuth();
   const textArea = useRef(null);
   useEffect(() => {
     textArea.current.focus();

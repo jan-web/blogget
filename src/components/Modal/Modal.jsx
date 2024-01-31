@@ -8,10 +8,12 @@ import {useCommentsData} from '../../hooks/useCommentsData';
 import Comments from '../Main/List/Post/Comments';
 import FormComment from '../Main/List/Post/FormComment';
 import {Text} from '../../UI/Text';
+import Preloader from '../../UI/Preloader';
 
 export const Modal = ({id, closeModal}) => {
   const overlayRef = useRef(null);
-  const [postAndComments, isLoading] = useCommentsData(id);
+  const [postAndComments, status] = useCommentsData(id);
+
   const [isFormVisible, setIsFormVisible] = useState(false);
   let title = 'title загрузка...';
   let author = 'author загрузка...';
@@ -49,7 +51,9 @@ export const Modal = ({id, closeModal}) => {
   return ReactDOM.createPortal(
     <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
-        {isLoading ? (
+        {status === 'loading' && <Preloader color={'#cc6633'} size={200} />}
+        {status === 'error' && 'Ошибка'}
+        {status === 'loaded' && (
           <>
             <h2 className={style.title}>{title}</h2>
             <div className={style.content}>
@@ -69,7 +73,7 @@ export const Modal = ({id, closeModal}) => {
             <Text className={style.author} As="p">
               {author}
             </Text>
-            {isFormVisible && <FormComment onSubmitForm={handleFormVisible}/>}
+            {isFormVisible && <FormComment onSubmitForm={handleFormVisible} />}
             {!isFormVisible && (
               <button onClick={handleFormVisible}>Написать комментарий</button>
             )}
@@ -78,8 +82,6 @@ export const Modal = ({id, closeModal}) => {
               <CloseIcon onClick={closeModal} />
             </button>
           </>
-        ) : (
-          <p>Загрузка</p>
         )}
       </div>
     </div>,
