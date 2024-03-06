@@ -1,8 +1,9 @@
 import {
-  GET_BESTPOSTS_ERROR,
-  GET_BESTPOSTS_REQUEST,
-  GET_BESTPOSTS_SUCCESS,
-} from './getBestPostsReducerActions';
+  AUTH_LOGOUT,
+  AUTH_REQUEST,
+  AUTH_REQUEST_ERROR,
+  AUTH_REQUEST_SUCCESS,
+} from './action';
 
 const initialState = {
   loading: false,
@@ -10,26 +11,30 @@ const initialState = {
   error: '',
 };
 
-export const getBestPostsReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_BESTPOSTS_REQUEST:
+    case AUTH_REQUEST:
       return {
         ...state,
-        data: {},
         loading: true,
       };
-    case GET_BESTPOSTS_SUCCESS:
+    case AUTH_REQUEST_SUCCESS:
       return {
         ...state,
         loading: false,
         data: action.data,
         error: '',
       };
-    case GET_BESTPOSTS_ERROR:
+    case AUTH_REQUEST_ERROR:
       return {
         ...state,
-        loading: true,
+        loading: false,
         error: action.error,
+      };
+    case AUTH_LOGOUT:
+      return {
+        ...state,
+        data: {},
       };
 
     default:

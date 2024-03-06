@@ -1,10 +1,10 @@
-import style from './FormComment.module.css';
-import {Text} from '../../../../../UI/Text';
-import {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {updateComment} from '../../../../../store/commentReducer.js';
+import {Text} from '../../../../../UI/Text';
 import {useAuth} from '../../../../../hooks/useAuth.js';
+import {updateComment} from '../../../../../store/comment/action.js';
+import style from './FormComment.module.css';
 
 export const FormComment = ({onSubmitForm}) => {
   const value = useSelector(state => state.comment.comment);
@@ -22,7 +22,6 @@ export const FormComment = ({onSubmitForm}) => {
 
   const handleOnFormSubmit = e => {
     e.preventDefault();
-    console.log(value);
     onSubmitForm();
   };
 

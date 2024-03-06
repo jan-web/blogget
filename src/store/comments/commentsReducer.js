@@ -2,7 +2,7 @@ import {
   GET_COMMENTS_DATA_REQUEST,
   GET_COMMENTS_DATA_SUCCESS,
   GET_COMMENTS_DATA_ERROR,
-} from './getCommentsDataActions';
+} from './action';
 
 const initialState = {
   status: false,
@@ -27,7 +27,7 @@ export const getCommentsDataReducer = (state = initialState, action) => {
     case GET_COMMENTS_DATA_ERROR:
       return {
         ...state,
-        status: 'errorrr',
+        status: 'error',
       };
 
     default:

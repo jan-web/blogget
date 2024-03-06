@@ -5,17 +5,17 @@ import {
   legacy_createStore as legacyCreateStore,
 } from 'redux';
 import {thunk} from 'redux-thunk';
-import {authReducer} from './authReducer/authReducer';
-import {commentReducer} from './commentReducer';
-import {tokenMiddleware, tokenReducer} from './tokenReducer';
-import {getBestPostsReducer} from './getBestPosts/getBestPostsReducer';
-import {getCommentsDataReducer} from './getCommentsData/getCommentsDataReducer';
+import {authReducer} from './auth/authReducer';
+import {commentReducer} from './comment/commentReducer';
+import {getCommentsDataReducer} from './comments/commentsReducer';
+import {getBestPostsReducer} from './posts/postReducer';
+import {tokenMiddleware, tokenReducer} from './token/tokenReducer';
 
 const rootReducer = combineReducers({
   token: tokenReducer,
   comment: commentReducer,
   auth: authReducer,
-  getBestPost: getBestPostsReducer,
+  posts: getBestPostsReducer,
   getCommentsData: getCommentsDataReducer,
 });
 

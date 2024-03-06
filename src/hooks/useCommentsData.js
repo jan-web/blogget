@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCommentsDataAsync} from '../store/getCommentsData/getCommentsDataActions';
+import {getCommentsDataAsync} from '../store/comments/action';
 
 export const useCommentsData = id => {
   const status = useSelector(state => state.getCommentsData.status);

@@ -1,20 +1,9 @@
-import {setToken} from '../api/token';
+import {setToken} from '../../api/token';
+import {UPDATE_TOKEN, DELETE_TOKEN} from './action';
 
 const initialState = {
   token: '',
 };
-
-const UPDATE_TOKEN = 'UPDATE_TOKEN';
-const DELETE_TOKEN = 'DELETE_TOKEN';
-
-export const updateToken = token => ({
-  type: UPDATE_TOKEN,
-  token,
-});
-export const deleteToken = () => ({
-  type: DELETE_TOKEN,
-  token: '',
-});
 
 export const tokenMiddleware = store => next => action => {
   if (action.type === UPDATE_TOKEN) {
