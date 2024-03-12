@@ -15,20 +15,18 @@ export const Modal = () => {
   const {id, page} = useParams();
   const navigate = useNavigate();
   const overlayRef = useRef(null);
-  const [postAndComments, status] = useCommentsData(id);
+  const [post, comments, status] = useCommentsData(id);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   let title = 'title загрузка...';
   let author = 'author загрузка...';
   let markdown = 'markdown загрузка...';
   let date = '';
-  let comments = [];
-  if (postAndComments.length > 0) {
-    title = postAndComments[0]?.title;
-    author = postAndComments[0]?.author;
-    markdown = postAndComments[0]?.selftext;
-    date = postAndComments[0]?.created;
-    comments = postAndComments[1];
+  if (comments.length > 0) {
+    title = post.title;
+    author = post.author;
+    markdown = post?.selftext;
+    date = post?.created;
   }
 
   const handleClick = e => {

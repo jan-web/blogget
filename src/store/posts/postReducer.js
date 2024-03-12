@@ -1,9 +1,9 @@
 import {
-  POST_REQUEST_ERROR,
+  CHANGE_PAGE,
   POST_REQUEST,
+  POST_REQUEST_ERROR,
   POST_REQUEST_SUCCESS,
   POST_REQUEST_SUCCESS_AFTER,
-  CHANGE_PAGE,
 } from './postsAction';
 
 const initialState = {

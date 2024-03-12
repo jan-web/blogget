@@ -1,6 +1,6 @@
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {postsRequestAsync} from '../store/posts/postsAction';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postRequestAsync } from '../store/posts/postsAction_туц';
 
 export const usePostsData = () => {
   const postsData = useSelector(state => state.posts.posts);
@@ -8,7 +8,8 @@ export const usePostsData = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(postsRequestAsync());
+    console.log('Запрос из usePostsData');
+    dispatch(postRequestAsync());
   }, [token]);
 
   return [postsData];
