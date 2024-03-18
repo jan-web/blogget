@@ -9,9 +9,12 @@ import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
+  const isLoading = useSelector(state => state.posts.loading);
+  const isLast = useSelector(state => state.posts.isLast);
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
+  const after = useSelector(state => state.posts.after);
 
   useEffect(() => {
     dispatch(postsSlice.actions.changePage(page));
@@ -21,7 +24,13 @@ export const List = () => {
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          dispatch(postRequestAsync());
+          if (!isLoading && !isLast) {
+            console.log(
+              'after внутри компонента List получаемый из postSlice: ',
+              after,
+            );
+            dispatch(postRequestAsync());
+          }
         }
       },
       {
@@ -38,7 +47,7 @@ export const List = () => {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, []);
 
   return (
     <>

@@ -8,6 +8,7 @@ export const postRequestAsync = createAsyncThunk(
     const page = newPage || getState().posts.page;
     const token = getState().token.token;
     const after = getState().posts.after;
+    console.log('after PostAction: ', after);
     const isLast = getState().posts.isLast;
     if (!token || isLast) return;
 
@@ -20,6 +21,8 @@ export const postRequestAsync = createAsyncThunk(
       },
     )
       .then(({data}) => {
+        console.log('data.data.children: ', data.data.children);
+        console.log('data.data.after: ', data.data.after ? !data.data.after : '');
         return data.data;
       })
       .catch(err => ({error: err}));
