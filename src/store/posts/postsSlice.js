@@ -28,9 +28,8 @@ export const postsSlice = createSlice({
         state.loading = true;
       })
       .addCase(postRequestAsync.fulfilled, (state, action) => {
-        console.log('action.payload.after: ', action.payload.after ? action.payload.after : 'отсутствует after');
         state.loading = false;
-        state.posts = [...state.posts, ...action.payload.children];
+        state.posts = [...state.posts, ...action.payload.posts];
         state.error = '';
         state.after = action.payload.after;
         state.isLast = !action.payload.after;

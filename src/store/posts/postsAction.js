@@ -8,9 +8,10 @@ export const postRequestAsync = createAsyncThunk(
     const page = newPage || getState().posts.page;
     const token = getState().token.token;
     const after = getState().posts.after;
-    console.log('after PostAction: ', after);
+    const oldPosts = getState().posts.posts;
+
     const isLast = getState().posts.isLast;
-    if (!token || isLast) return;
+    if (!token || isLast) return getState().posts;
 
     return axios(
       `${URL_API}/${page}?limit=10&${after ? `after=${after}` : ''}`,
@@ -21,9 +22,14 @@ export const postRequestAsync = createAsyncThunk(
       },
     )
       .then(({data}) => {
-        console.log('data.data.children: ', data.data.children);
-        console.log('data.data.after: ', data.data.after ? !data.data.after : '');
-        return data.data;
+        console.log('data.data.children = newPosts: ', data.data.children);
+        console.log('oldPosts: ', oldPosts);
+        console.log('after PostAction: ', after);
+        let newPosts = data.data.children;
+        if (after) {
+          newPosts = [...oldPosts, ...data.data.children];
+        }
+        return {posts: newPosts, after: data.data.after, page};
       })
       .catch(err => ({error: err}));
   },
