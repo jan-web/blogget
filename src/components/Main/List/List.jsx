@@ -31,14 +31,14 @@ export const List = () => {
 
     setTimeout(() => {
       observer.observe(endList.current);
-    }, 500);
+    }, 1000);
 
     return () => {
       if (endList.current) {
         observer.unobserve(endList.current);
       }
     };
-  }, []);
+  }, [endList.current]);
 
   return (
     <>
