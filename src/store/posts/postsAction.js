@@ -1,6 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {URL_API} from '../../api/const';
+import {v4 as uuidv4} from 'uuid';
 
 export const postRequestAsync = createAsyncThunk(
   'post/fetch',
@@ -22,7 +23,14 @@ export const postRequestAsync = createAsyncThunk(
       },
     )
       .then(({data}) => {
-        let newPosts = data.data.children;
+        let newPosts = data.data.children.map(el => ({
+          ...el,
+          data: {
+            ...el.data,
+            id: uuidv4(),
+          },
+        }));
+
         if (after) {
           newPosts = [...oldPosts, ...data.data.children];
         }

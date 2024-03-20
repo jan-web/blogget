@@ -29,9 +29,7 @@ export const List = () => {
       },
     );
 
-    setTimeout(() => {
-      observer.observe(endList.current);
-    }, 1000);
+    observer.observe(endList.current);
 
     return () => {
       if (endList.current) {
