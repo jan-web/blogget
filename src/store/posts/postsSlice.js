@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   posts: [],
   error: '',
-  after: 'начальное значение after из initialState',
+  after: 'не изменяемое начальное значение after из initialState',
   isLast: false,
   page: '',
 };
@@ -29,7 +29,7 @@ export const postsSlice = createSlice({
       })
       .addCase(postRequestAsync.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = [...state.posts, ...action.payload.posts];
+        state.posts = action.payload.posts;
         state.error = '';
         state.after = action.payload.after;
         state.isLast = !action.payload.after;

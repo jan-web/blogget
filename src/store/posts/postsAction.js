@@ -22,9 +22,6 @@ export const postRequestAsync = createAsyncThunk(
       },
     )
       .then(({data}) => {
-        console.log('data.data.children = newPosts: ', data.data.children);
-        console.log('oldPosts: ', oldPosts);
-        console.log('after PostAction: ', after);
         let newPosts = data.data.children;
         if (after) {
           newPosts = [...oldPosts, ...data.data.children];
