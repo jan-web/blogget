@@ -3,7 +3,7 @@ import {useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Text} from '../../../../../UI/Text';
 import {useAuth} from '../../../../../hooks/useAuth.js';
-import {updateComment} from '../../../../../store/comment/action.js';
+import {updateComment} from '../../../../../store/comment/commentAction.js';
 import style from './FormComment.module.css';
 
 export const FormComment = ({onSubmitForm}) => {

@@ -18,11 +18,11 @@ export const Modal = () => {
   const [post, comments, status] = useCommentsData(id);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
-  let title = 'title загрузка...';
-  let author = 'author загрузка...';
-  let markdown = 'markdown загрузка...';
-  let date = '';
-  if (comments.length > 0) {
+  let title = 'Пост потерял заголовок';
+  let author = 'автор поста неизвестен';
+  let markdown = 'Содержимое поста утрачено';
+  let date = 0;
+  if (comments && comments.length > 0) {
     title = post.title;
     author = post.author;
     markdown = post?.selftext;

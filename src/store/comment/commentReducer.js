@@ -1,4 +1,4 @@
-import {UPDATE_COMMENT} from './action';
+import {UPDATE_COMMENT} from './commentAction';
 
 const initialState = {
   comment: 'Привет Redux',

@@ -7,10 +7,11 @@ export const Comments = ({date, comments}) => {
   return (
     <ul className={style.list}>
       {
-        comments.length ? (
+        comments ? (
         comments.map(
           item =>
-            item.body && (
+            item.body && (item.author !==
+              '[deleted]') && (
               <li className={style.item} key={item.id}>
                 <Text className={style.author} As="h3" size={18} tsize={22}>
                   {item.author}
@@ -25,7 +26,6 @@ export const Comments = ({date, comments}) => {
       ) : (
         <>
           <p>Нет комментариев</p>
-          {/* <p>{comments[0].body}</p> */}
         </>
       )}
     </ul>
@@ -33,6 +33,6 @@ export const Comments = ({date, comments}) => {
 };
 
 Comments.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.number,
   comments: PropTypes.array,
 };

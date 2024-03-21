@@ -9,7 +9,6 @@ import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
-  console.log('postsData: ', postsData);
   const auth = useSelector(state => state.auth.data);
   const endList = useRef(null);
   const dispatch = useDispatch();
@@ -17,7 +16,7 @@ export const List = () => {
 
   useEffect(() => {
     dispatch(postsSlice.actions.changePage(page));
-    dispatch(postRequestAsync(page));
+    dispatch(postRequestAsync());
   }, [page]);
 
   useEffect(() => {
