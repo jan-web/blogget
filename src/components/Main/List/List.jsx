@@ -9,12 +9,15 @@ import {postsSlice} from '../../../store/posts/postsSlice';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
+  console.log('postsData: ', postsData);
+  const auth = useSelector(state => state.auth.data);
   const endList = useRef(null);
   const dispatch = useDispatch();
   const {page} = useParams();
 
   useEffect(() => {
     dispatch(postsSlice.actions.changePage(page));
+    dispatch(postRequestAsync(page));
   }, [page]);
 
   useEffect(() => {
@@ -40,13 +43,15 @@ export const List = () => {
 
   return (
     <>
+      {!auth.name && <p>Пройдите авторизацию</p>}
       <ul className={style.list}>
         {postsData.length ? (
           postsData.map(post => (
             <Post key={post.data.id} postData={post.data} />
           ))
         ) : (
-          <Preloader color={'#cc6633'} size={200} />
+          auth.name && <Preloader color={'#cc6633'} size={200} />
+
         )}
         <li ref={endList} className={style.end} />
       </ul>
